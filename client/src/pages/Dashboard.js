@@ -8,7 +8,7 @@ const Dashboard = () => {
     return (
         <Box sx={{ padding: 3 }}>
             <Typography variant="h4" gutterBottom>
-                Welcome to MentorBridge Dashboard
+                Welcome to Mentor Bridge Dashboard
             </Typography>
             <Box display="flex" gap={2} mt={2}>
                 <Button
