@@ -8,8 +8,12 @@ import {
     IconButton,
     Tooltip,
     Button,
+    AppBar,
+    Toolbar,
+    InputBase,
 } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import SearchIcon from '@mui/icons-material/Search';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SchoolIcon from '@mui/icons-material/School';
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -18,18 +22,11 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { PieChart, Pie, Cell } from 'recharts';
 import logo from './assets/logo.png';
 
 const Dashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(true);
     const [selectedItem, setSelectedItem] = useState('Dashboard');
-
-    // Dummy data for pie chart
-    const pieData = [
-        { name: 'Completed', value: 75, color: '#4880FF' }, // Updated primary blue
-        { name: 'Remaining', value: 25, color: '#CCCCCC' }, // Gray for remaining
-    ];
 
     // Sidebar options with icons
     const sidebarOptions = [
@@ -40,13 +37,19 @@ const Dashboard = () => {
         { label: 'Settings', icon: <SettingsIcon /> },
     ];
 
+    // Dummy data for upcoming sessions
+    const upcomingSessions = [
+        { mentor: 'John Doe', date: 'Dec 6', time: '10:00 AM - 11:00 AM' },
+        { mentor: 'Jane Smith', date: 'Dec 8', time: '2:00 PM - 3:00 PM' },
+    ];
+
     return (
         <Box sx={{ display: 'flex', height: '100vh', backgroundColor: '#F9F9F9' }}>
             {/* Sidebar */}
             <Box
                 sx={{
                     width: isSidebarOpen ? 240 : 80,
-                    backgroundColor: '#FFFFFF', // Sidebar bg is now white
+                    backgroundColor: '#FFFFFF',
                     color: '#393E46',
                     transition: 'width 0.3s',
                     borderRight: '1px solid #E0E0E0',
@@ -137,33 +140,52 @@ const Dashboard = () => {
             </Box>
 
             {/* Main Content */}
-            <Box sx={{ flex: 1, padding: 3, backgroundColor: '#F9F9F9' }}>
-                {/* Header */}
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        mb: 4,
-                    }}
+            <Box sx={{ flex: 1, backgroundColor: '#F9F9F9' }}>
+                {/* Navbar */}
+                <AppBar
+                    position="static"
+                    sx={{ backgroundColor: '#4880FF', color: '#FFFFFF', mb: 4 }}
                 >
-                    <Typography variant="h4" fontWeight="bold" sx={{ color: '#393E46' }}>
-                        Welcome, Mentee One
-                    </Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Toolbar>
+                        <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+                            <IconButton
+                                edge="start"
+                                color="inherit"
+                                aria-label="menu"
+                                sx={{ mr: 2 }}
+                                onClick={() => setSidebarOpen(!isSidebarOpen)}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Box
+                                sx={{
+                                    backgroundColor: '#FFFFFF',
+                                    borderRadius: '4px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: '0px 8px',
+                                }}
+                            >
+                                <SearchIcon sx={{ color: '#4880FF', mr: 1 }} />
+                                <InputBase
+                                    placeholder="Search..."
+                                    sx={{ flex: 1, color: '#393E46' }}
+                                />
+                            </Box>
+                        </Box>
                         <Tooltip title="Notifications">
                             <IconButton>
-                                <NotificationsIcon sx={{ color: '#393E46' }} />
+                                <NotificationsIcon sx={{ color: '#FFFFFF' }} />
                             </IconButton>
                         </Tooltip>
-                        <Avatar sx={{ bgcolor: '#E0E0E0', color: '#393E46' }}>MO</Avatar>
-                    </Box>
-                </Box>
+                        <Avatar sx={{ bgcolor: '#E0E0E0', color: '#393E46', ml: 2 }}>MO</Avatar>
+                    </Toolbar>
+                </AppBar>
 
                 {/* Main Grid */}
-                <Grid container spacing={3}>
-                    {/* Overview Card */}
-                    <Grid item xs={12} md={6}>
+                <Grid container spacing={3} sx={{ padding: 3 }}>
+                    {/* Progress Overview */}
+                    <Grid item xs={12}>
                         <Paper
                             sx={{
                                 padding: 3,
@@ -179,58 +201,44 @@ const Dashboard = () => {
                             >
                                 Progress Overview
                             </Typography>
-                            <PieChart width={200} height={200}>
-                                <Pie
-                                    data={pieData}
-                                    dataKey="value"
-                                    cx="50%"
-                                    cy="50%"
-                                    outerRadius={80}
-                                >
-                                    {pieData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={entry.color} />
-                                    ))}
-                                </Pie>
-                            </PieChart>
-                            <Typography sx={{ textAlign: 'center', mt: 2 }}>
-                                75% of your goals are completed!
-                            </Typography>
+                            <Grid container spacing={2}>
+                                <Grid item xs={6} md={3}>
+                                    <Paper sx={{ padding: 2, textAlign: 'center' }}>
+                                        <Typography fontWeight="bold">Completed Sessions</Typography>
+                                        <Typography variant="h5" color="#4880FF">
+                                            12
+                                        </Typography>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={6} md={3}>
+                                    <Paper sx={{ padding: 2, textAlign: 'center' }}>
+                                        <Typography fontWeight="bold">Courses Selected</Typography>
+                                        <Typography variant="h5" color="#4880FF">
+                                            8
+                                        </Typography>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={6} md={3}>
+                                    <Paper sx={{ padding: 2, textAlign: 'center' }}>
+                                        <Typography fontWeight="bold">Mentor Reviews</Typography>
+                                        <Typography variant="h5" color="#4880FF">
+                                            9
+                                        </Typography>
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={6} md={3}>
+                                    <Paper sx={{ padding: 2, textAlign: 'center' }}>
+                                        <Typography fontWeight="bold">Goals Achieved</Typography>
+                                        <Typography variant="h5" color="#4880FF">
+                                            5
+                                        </Typography>
+                                    </Paper>
+                                </Grid>
+                            </Grid>
                         </Paper>
                     </Grid>
 
-                    {/* Upcoming Deadlines Card */}
-                    <Grid item xs={12} md={6}>
-                        <Paper
-                            sx={{
-                                padding: 3,
-                                borderRadius: 4,
-                                backgroundColor: '#FFFFFF',
-                                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                            }}
-                        >
-                            <Typography
-                                variant="h6"
-                                fontWeight="bold"
-                                sx={{ mb: 2, color: '#393E46' }}
-                            >
-                                Upcoming Deadlines
-                            </Typography>
-                            <Typography>- Submit Resume by Dec 5</Typography>
-                            <Typography>- Mock Interview on Dec 10</Typography>
-                            <Button
-                                variant="contained"
-                                sx={{
-                                    backgroundColor: '#4880FF',
-                                    color: '#FFFFFF',
-                                    marginTop: 2,
-                                }}
-                            >
-                                View All
-                            </Button>
-                        </Paper>
-                    </Grid>
-
-                    {/* Mentor Recommendations */}
+                    {/* Upcoming Sessions */}
                     <Grid item xs={12}>
                         <Paper
                             sx={{
@@ -245,10 +253,16 @@ const Dashboard = () => {
                                 fontWeight="bold"
                                 sx={{ mb: 2, color: '#393E46' }}
                             >
-                                Recommended Mentors
+                                Upcoming Sessions
                             </Typography>
-                            <Typography>- John Doe: Data Science Expert</Typography>
-                            <Typography>- Jane Smith: Frontend Developer</Typography>
+                            {upcomingSessions.map((session, index) => (
+                                <Box key={index} sx={{ marginBottom: 2 }}>
+                                    <Typography>
+                                        <strong>{session.mentor}</strong>: {session.date} at{' '}
+                                        {session.time}
+                                    </Typography>
+                                </Box>
+                            ))}
                             <Button
                                 variant="contained"
                                 sx={{
@@ -257,7 +271,40 @@ const Dashboard = () => {
                                     marginTop: 2,
                                 }}
                             >
-                                View All Mentors
+                                View All Sessions
+                            </Button>
+                        </Paper>
+                    </Grid>
+
+                    {/* Resources & Tips */}
+                    <Grid item xs={12}>
+                        <Paper
+                            sx={{
+                                padding: 3,
+                                borderRadius: 4,
+                                backgroundColor: '#FFFFFF',
+                                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                            }}
+                        >
+                            <Typography
+                                variant="h6"
+                                fontWeight="bold"
+                                sx={{ mb: 2, color: '#393E46' }}
+                            >
+                                Resources & Tips
+                            </Typography>
+                            <Typography>- "How to Ace Interviews?" by Mentor X</Typography>
+                            <Typography>- "Top Courses for Data Science"</Typography>
+                            <Typography>- "Resume Writing Guidelines"</Typography>
+                            <Button
+                                variant="contained"
+                                sx={{
+                                    backgroundColor: '#4880FF',
+                                    color: '#FFFFFF',
+                                    marginTop: 2,
+                                }}
+                            >
+                                Explore Resources
                             </Button>
                         </Paper>
                     </Grid>
