@@ -5,7 +5,6 @@ import SignUp from './pages/SignUp';
 import Dashboard from './pages/Dashboard';
 import CourseSelection from './pages/CourseSelection';
 import CoursePlan from './pages/CoursePlan';
-import Navbar from './components/Navbar';
 
 function App() {
     return (
