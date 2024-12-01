@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import backgroundImage from './assets/bg.png';
-import logo from './assets/Logo.png';
+import logo from './assets/logo.png';
 
 const Login = () => {
     const [email, setEmail] = useState('');
