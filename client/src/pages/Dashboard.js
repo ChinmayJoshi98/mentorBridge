@@ -1,18 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Button, Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-   return (
-       <div style={{ padding: '20px' }}>
-           <h1>Welcome to MentorBridge</h1>
-           <nav style={{ marginTop: '20px' }}>
-               <ul>
-                   <li><Link to="/course-selection">Go to Course Selection</Link></li>
-                   {/* Add more links as needed */}
-               </ul>
-           </nav>
-       </div>
-   );
+    const navigate = useNavigate();
+
+    return (
+        <Box sx={{ padding: 3 }}>
+            <Typography variant="h4" gutterBottom>
+                Welcome to MentorBridge Dashboard
+            </Typography>
+            <Box display="flex" gap={2} mt={2}>
+                <Button
+                    variant="contained"
+                    onClick={() => navigate('/course-selection')}
+                >
+                    Go to Course Selection
+                </Button>
+                <Button
+                    variant="contained"
+                    onClick={() => navigate('/course-plan')}
+                >
+                    View Course Plan
+                </Button>
+            </Box>
+        </Box>
+    );
 };
 
 export default Dashboard;
