@@ -11,9 +11,9 @@ import {
   ListItemAvatar,
   Divider,
 } from '@mui/material';
-import EventIcon from '@mui/icons-material/Event';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
-const UpcomingSessions = ({ upcomingSessions }) => (
+const ResourcesTips = ({ resources }) => (
   <Paper
     sx={{
       padding: 3,
@@ -30,31 +30,31 @@ const UpcomingSessions = ({ upcomingSessions }) => (
       fontWeight="bold"
       sx={{ mb: 2, color: '#393E46' }}
     >
-      Upcoming Sessions
+      Resources & Tips
     </Typography>
     <List sx={{ flex: 1, width: '100%' }}>
-      {upcomingSessions.map((session, index) => (
+      {resources.map((resource, index) => (
         <React.Fragment key={index}>
           <ListItem alignItems="flex-start">
             <ListItemAvatar>
-              <Avatar sx={{ bgcolor: '#4880FF' }}>
-                <EventIcon sx={{ color: '#FFFFFF' }} />
+              <Avatar sx={{ bgcolor: '#43A047' }}>
+                <LightbulbIcon sx={{ color: '#FFFFFF' }} />
               </Avatar>
             </ListItemAvatar>
             <ListItemText
               primary={
                 <Typography variant="subtitle1" fontWeight="bold">
-                  {session.mentor}
+                  {resource.title}
                 </Typography>
               }
               secondary={
                 <Typography variant="body2" color="textSecondary">
-                  {session.date} | {session.time}
+                  {resource.author}
                 </Typography>
               }
             />
           </ListItem>
-          {index < upcomingSessions.length - 1 && (
+          {index < resources.length - 1 && (
             <Divider variant="inset" component="li" />
           )}
         </React.Fragment>
@@ -73,9 +73,9 @@ const UpcomingSessions = ({ upcomingSessions }) => (
         },
       }}
     >
-      View All Sessions
+      Explore Resources
     </Button>
   </Paper>
 );
 
-export default UpcomingSessions;
+export default ResourcesTips;

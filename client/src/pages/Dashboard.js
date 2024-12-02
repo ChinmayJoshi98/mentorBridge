@@ -1,22 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Grid } from '@mui/material';
 import ProgressOverview from '../components/ProgressOverview';
 import UpcomingSessions from '../components/UpcomingSessions';
-import ResourcesTips from '../components/ResourceTips';
+import ResourcesTips from '../components/ResourcesTips';
+import { PlannerContext } from '../context/PlannerContext';
 
 const Dashboard = () => {
-
-  const upcomingSessions = [
-    { mentor: 'John Doe', date: 'Dec 6', time: '10:00 AM - 11:00 AM' },
-    { mentor: 'Jane Smith', date: 'Dec 8', time: '2:00 PM - 3:00 PM' },
-  ];
-
-  const resources = [
-    '"How to Ace Interviews?" by Mentor X',
-    '"Top Courses for Data Science"',
-    '"Resume Writing Guidelines"',
-  ];
-
+  const resumeScore = 85;
   const currentCourses = {
     semester: 'Fall 2024',
     courses: [
@@ -26,22 +16,43 @@ const Dashboard = () => {
       'Database Systems',
     ],
   };
+  const upcomingSessions = [
+    {
+      mentor: 'Alice Johnson',
+      date: 'Oct 15, 2023',
+      time: '10:00 AM',
+    },
+    {
+      mentor: 'Bob Smith',
+      date: 'Oct 20, 2023',
+      time: '2:00 PM',
+    },
+  ];
+  const resources = [
+    { title: 'How to Ace Interviews?', author: 'Mentor X' },
+    { title: 'Top Courses for Data Science', author: 'Mentor Y' },
+    { title: 'Resume Writing Guidelines', author: 'Mentor Z' },
+  ];
 
-  const resumeScore = 85;
-  const projectsCompleted = 3;
-  const completedSessions = 4;
+  const currentMentor = {
+    id: 1,
+    name: 'Alice Johnson',
+    profilePic: '/assets/mentors/alice.jpg',
+    interests: ['Data Science', 'Machine Learning', 'Artificial Intelligence'],
+  };
 
+  const { plannerCourses } = useContext(PlannerContext);
 
   return (
-    <Box>
-      <Grid container spacing={3}>
+    <Box sx={{ flexGrow: 1, p: 3 }}>
+      <Grid container spacing={3} alignItems="stretch">
         {/* Progress Overview */}
         <Grid item xs={12}>
           <ProgressOverview
             resumeScore={resumeScore}
             currentCourses={currentCourses}
-            projectsCompleted={projectsCompleted}
-            completedSessions={completedSessions}
+            plannerCourses={plannerCourses}
+            currentMentor={currentMentor}
           />
         </Grid>
 

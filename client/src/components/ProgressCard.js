@@ -24,74 +24,101 @@ const ProgressCard = ({
       border: `2px solid ${color}`,
       borderRadius: 4,
       '&:hover': {
-        backgroundColor: `${color}20`, // Adding transparency
+        backgroundColor: `${color}20`,
         transition: '0.3s',
       },
-      minHeight: '250px',
+      height: '100%',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
+      boxSizing: 'border-box',
     }}
   >
-    {icon}
-    <Typography fontWeight="bold" sx={{ mt: 1 }}>
-      {title}
-    </Typography>
-    {progressType === 'circular' && (
-      <Box
-        sx={{
-          position: 'relative',
-          display: 'inline-flex',
-          mt: 2,
-        }}
-      >
-        <CircularProgress
-          variant="determinate"
-          value={value}
-          size={80}
-          thickness={5}
-          sx={{
-            color: color,
-          }}
-        />
+    <Box sx={{ mt: 1, mb: 1 }}>
+      {icon}
+      <Typography fontWeight="bold" sx={{ mt: 1 }}>
+        {title}
+      </Typography>
+    </Box>
+    <Box
+      sx={{
+        flexGrow: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {progressType === 'circular' && (
         <Box
           sx={{
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
+            position: 'relative',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
-          <Typography variant="h5" color={color} fontWeight="bold">
-            {value}%
+          <CircularProgress
+            variant="determinate"
+            value={value}
+            size={80}
+            thickness={5}
+            sx={{
+              color: color,
+            }}
+          />
+          <Box
+            sx={{
+              position: 'absolute',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography variant="h5" color={color} fontWeight="bold">
+              {value}%
+            </Typography>
+          </Box>
+        </Box>
+      )}
+      {progressType === 'number' && (
+        <Box
+          sx={{
+            backgroundColor: `${color}20`,
+            borderRadius: '50%',
+            width: 80,
+            height: 80,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography variant="h4" color={color} fontWeight="bold">
+            {value}
           </Typography>
         </Box>
-      </Box>
-    )}
-    {progressType === 'number' && (
-      <Typography variant="h5" color={color} sx={{ mt: 2 }}>
-        {value}
-      </Typography>
-    )}
-    {progressType === 'list' && (
-      <>
-        <Typography variant="subtitle1" color={color}>
-          {value}
-        </Typography>
-        <List dense sx={{ width: '100%' }}>
-          {listItems.map((item, index) => (
-            <ListItem key={index} sx={{ padding: 0 }}>
-              <ListItemText primary={item} />
-            </ListItem>
-          ))}
-        </List>
-      </>
-    )}
+      )}
+      {progressType === 'list' && (
+        <Box sx={{ width: '100%' }}>
+          <Typography variant="subtitle1" color={color} sx={{ mb: 1 }}>
+            {value}
+          </Typography>
+          <List dense sx={{ width: '100%' }}>
+            {listItems.map((item, index) => (
+              <ListItem
+                key={index}
+                disableGutters
+                sx={{ justifyContent: 'center' }}
+              >
+                <ListItemText
+                  primary={item}
+                  primaryTypographyProps={{ textAlign: 'center', variant: 'body2' }}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      )}
+    </Box>
   </Paper>
 );
 
