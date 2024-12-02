@@ -21,8 +21,6 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import PeopleIcon from '@mui/icons-material/People';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import BookIcon from '@mui/icons-material/Book';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import RateReviewIcon from '@mui/icons-material/RateReview';
@@ -32,7 +30,6 @@ const Dashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(true);
     const [selectedItem, setSelectedItem] = useState('Dashboard');
 
-    // Sidebar options with icons
     const sidebarOptions = [
         { label: 'Dashboard', icon: <DashboardIcon /> },
         { label: 'Course Selection', icon: <SchoolIcon /> },
@@ -41,13 +38,11 @@ const Dashboard = () => {
         { label: 'Settings', icon: <SettingsIcon /> },
     ];
 
-    // Dummy data for upcoming sessions
     const upcomingSessions = [
         { mentor: 'John Doe', date: 'Dec 6', time: '10:00 AM - 11:00 AM' },
         { mentor: 'Jane Smith', date: 'Dec 8', time: '2:00 PM - 3:00 PM' },
     ];
 
-    // Calculate sidebar width based on its state
     const sidebarWidth = isSidebarOpen ? 240 : 80;
 
     return (
@@ -61,8 +56,8 @@ const Dashboard = () => {
                     transition: 'width 0.3s',
                     borderRight: '1px solid #E0E0E0',
                     overflow: 'hidden',
-                    position: 'fixed', // Fixed position
-                    height: '100vh', // Full viewport height
+                    position: 'fixed', 
+                    height: '100vh',
                 }}
             >
                 {/* Sidebar Header */}
@@ -124,10 +119,7 @@ const Dashboard = () => {
                             )}
                         </Box>
                     ))}
-                </Box>
-
-                {/* Expand/Collapse Button */}
-                
+                </Box>                
             </Box>
 
             {/* Main Content */}
@@ -135,17 +127,17 @@ const Dashboard = () => {
                 sx={{
                     flex: 1,
                     backgroundColor: '#F9F9F9',
-                    marginLeft: `${sidebarWidth}px`, // Adjusted for sidebar width
+                    marginLeft: `${sidebarWidth}px`,
                 }}
             >
                 {/* Navbar */}
                 <AppBar
-                    position="fixed" // Fixed position
+                    position="fixed"
                     sx={{
                         backgroundColor: '#4880FF',
                         color: '#FFFFFF',
-                        marginLeft: `${sidebarWidth}px`, // Start after sidebar
-                        width: `calc(100% - ${sidebarWidth}px)`, // Adjust width
+                        marginLeft: `${sidebarWidth}px`,
+                        width: `calc(100% - ${sidebarWidth}px)`,
                         transition: 'margin-left 0.3s, width 0.3s',
                     }}
                 >
@@ -185,11 +177,8 @@ const Dashboard = () => {
                     </Toolbar>
                 </AppBar>
 
-                {/* Adjusted main content to account for fixed AppBar */}
                 <Box sx={{ marginTop: '64px', padding: 3 }}>
-                    {/* Main Grid */}
                     <Grid container spacing={3}>
-                        {/* Enhanced Progress Overview */}
                         <Grid item xs={12}>
                             <Paper
                                 sx={{
@@ -207,7 +196,6 @@ const Dashboard = () => {
                                     Progress Overview
                                 </Typography>
                                 <Grid container spacing={3}>
-                                    {/* Completed Sessions */}
                                     <Grid item xs={12} sm={4}>
                                         <Paper
                                             sx={{
@@ -243,7 +231,6 @@ const Dashboard = () => {
                                         </Paper>
                                     </Grid>
 
-                                    {/* Courses Selected */}
                                     <Grid item xs={12} sm={4}>
                                         <Paper
                                             sx={{
@@ -279,7 +266,6 @@ const Dashboard = () => {
                                         </Paper>
                                     </Grid>
 
-                                    {/* Mentor Reviews */}
                                     <Grid item xs={12} sm={4}>
                                         <Paper
                                             sx={{
@@ -318,7 +304,6 @@ const Dashboard = () => {
                             </Paper>
                         </Grid>
 
-                        {/* Upcoming Sessions */}
                         <Grid item xs={12}>
                             <Paper
                                 sx={{
@@ -356,7 +341,6 @@ const Dashboard = () => {
                             </Paper>
                         </Grid>
 
-                        {/* Resources & Tips */}
                         <Grid item xs={12}>
                             <Paper
                                 sx={{
