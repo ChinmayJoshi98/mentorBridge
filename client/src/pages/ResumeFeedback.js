@@ -1,22 +1,25 @@
-// src/pages/ResumeFeedback.js
-
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box, Typography, Paper, List, ListItem, ListItemText } from '@mui/material';
 import { useLocation } from 'react-router-dom';
+import { ResumeContext } from '../context/ResumeContext';
 
 const ResumeFeedback = () => {
   const location = useLocation();
-  const notification = location.state?.notification;
-  const mentor = notification?.mentor || {
-    name: 'Mentor Name',
-    feedback: [
-      'Great structure in your resume.',
-      'Consider adding more projects related to your job interest.',
-      'Highlight your technical skills more prominently.',
-    ],
-  };
+  const { mentor } = location.state || {};
 
-  const resumeScore = Math.floor(Math.random() * 21) + 80; // Random score between 80 and 100
+  const defaultFeedback = [
+    'Great structure in your resume.',
+    'Consider adding more projects related to your job interest.',
+    'Highlight your technical skills more prominently.',
+  ];
+
+  const { updateResumeScore } = useContext(ResumeContext);
+
+  const resumeScore = Math.floor(Math.random() * 21) + 80;
+
+  useEffect(() => {
+    updateResumeScore(resumeScore);
+  }, [resumeScore, updateResumeScore]);
 
   return (
     <Box sx={{ flexGrow: 1, p: 3 }}>
@@ -36,10 +39,10 @@ const ResumeFeedback = () => {
           {resumeScore}%
         </Typography>
         <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-          Feedback from {mentor.name}
+          Feedback from {mentor?.name || 'Your Mentor'}
         </Typography>
         <List>
-          {mentor.feedback.map((item, index) => (
+          {(mentor?.feedback || defaultFeedback).map((item, index) => (
             <ListItem key={index}>
               <ListItemText primary={item} />
             </ListItem>

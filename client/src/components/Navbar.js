@@ -28,8 +28,14 @@ const Navbar = ({ isSidebarOpen, setSidebarOpen, sidebarWidth }) => {
 
   const handleNotificationClick = (notification) => {
     removeNotification(notification.id);
-    navigate(notification.link);
     setAnchorEl(null);
+
+    // Pass the mentor data if available
+    if (notification.mentor) {
+      navigate(notification.link, { state: { mentor: notification.mentor } });
+    } else {
+      navigate(notification.link);
+    }
   };
 
   const handleClose = () => {

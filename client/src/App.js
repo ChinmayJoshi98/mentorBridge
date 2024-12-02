@@ -13,6 +13,8 @@ import JobInterests from './pages/JobInterests';
 import ResumeMentorRecommendations from './pages/ResumeMentorRecommendations';
 import ResumeFeedback from './pages/ResumeFeedback';
 import { NotificationProvider } from './context/NotificationContext';
+import { ResumeProvider } from './context/ResumeContext';
+import { SnackbarProvider } from './context/SnackbarContext';
 
 function App() {
     const currentResume = {
@@ -21,31 +23,37 @@ function App() {
       };
       const resumeScore = 85;
     return (
-        <NotificationProvider>
+        <SnackbarProvider>
             <PlannerProvider>
-                <Router>
-                    <Routes>
-                        {/* Public Routes */}
-                        <Route path="/" element={<Login />} />
-                        <Route path="/signup" element={<SignUp />} />
+            <NotificationProvider>
+                <ResumeProvider>
+                    <Router>
+                        <Routes>
+                            {/* Public Routes */}
+                            <Route path="/" element={<Login />} />
+                            <Route path="/signup" element={<SignUp />} />
 
-                        {/* Protected Routes with Layout */}
-                        <Route element={<AppLayout />}>
-                            <Route path="/dashboard" element={<Dashboard />} />
-                            <Route path="/course-selection" element={<CourseSelectionLanding />} />
-                            <Route path="/course-selection/plan" element={<CourseSelection />} />
-                            <Route path="*" element={<Navigate to="/dashboard" replace />} />
-                            {/* Resume Review Routes */}
-                            <Route path="/resume-review" element={<ResumeReview currentResume={currentResume} resumeScore={resumeScore} />} />
-                            <Route path="/resume-review/upload" element={<UploadResume />} />
-                            <Route path="/resume-review/job-interests" element={<JobInterests />} />
-                            <Route path="/resume-review/recommended-mentors" element={<ResumeMentorRecommendations />} />
-                            <Route path="/resume-review/feedback" element={<ResumeFeedback />} />
-                        </Route>
-                    </Routes>
-                </Router>
-            </PlannerProvider>
-        </NotificationProvider>
+                            {/* Protected Routes with Layout */}
+                            <Route element={<AppLayout />}>
+                                <Route path="/dashboard" element={<Dashboard />} />
+                                <Route path="/course-selection" element={<CourseSelectionLanding />} />
+                                <Route path="/course-selection/plan" element={<CourseSelection />} />
+                                <Route path="*" element={<Navigate to="/dashboard" replace />} />
+                                {/* Resume Review Routes */}
+                                <Route path="/resume-review" element={<ResumeReview currentResume={currentResume} resumeScore={resumeScore} />} />
+                                <Route path="/resume-review/upload" element={<UploadResume />} />
+                                <Route path="/resume-review/job-interests" element={<JobInterests />} />
+                                <Route path="/resume-review/recommended-mentors" element={<ResumeMentorRecommendations />} />
+                                <Route path="/resume-review/feedback" element={<ResumeFeedback />} />
+                            </Route>
+                        </Routes>
+                    </Router>
+                </ResumeProvider>
+            </NotificationProvider>
+        </PlannerProvider>
+
+        </SnackbarProvider>
+        
     );
 }
 

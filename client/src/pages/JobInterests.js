@@ -1,4 +1,3 @@
-// src/pages/JobInterests.js
 
 import React, { useState } from 'react';
 import { Box, Typography, Chip, TextField, Button, Paper } from '@mui/material';

@@ -4,13 +4,17 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import ProgressCard from './ProgressCard';
 import PlannerSummaryCard from './PlannerSummaryCard';
 import CurrentMentorCard from './CurrentMentorCard';
+import { Link as RouterLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { ResumeContext } from '../context/ResumeContext';
 
 const ProgressOverview = ({
-  resumeScore,
   currentCourses,
   plannerCourses,
   currentMentor,
 }) => {
+  const { resumeScore, hasNewResumeScore } = useContext(ResumeContext);
+
   return (
     <Paper
       sx={{
@@ -31,11 +35,13 @@ const ProgressOverview = ({
         {/* Resume Score */}
         <Grid item xs={12} sm={6} md={3}>
           <ProgressCard
-            title="Resume Score"
+            title="Latest Resume Score"
             value={resumeScore}
             icon={<AssignmentIcon sx={{ fontSize: 40, color: '#00ACC1' }} />}
             color="#00ACC1"
             progressType="circular"
+            link="/resume-review/feedback"
+            flash={hasNewResumeScore}
           />
         </Grid>
 
