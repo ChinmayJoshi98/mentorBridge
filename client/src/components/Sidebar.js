@@ -4,7 +4,7 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
 } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
 const Sidebar = ({
@@ -16,6 +16,17 @@ const Sidebar = ({
   sidebarWidth,
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Automatically highlight the sidebar option based on the current path
+  React.useEffect(() => {
+    const activeItem = sidebarOptions.find((option) =>
+      location.pathname.startsWith(option.path)
+    );
+    if (activeItem) {
+      setSelectedItem(activeItem.label);
+    }
+  }, [location.pathname, sidebarOptions, setSelectedItem]);
 
   const handleNavigation = (option) => {
     setSelectedItem(option.label);
@@ -33,6 +44,9 @@ const Sidebar = ({
         overflow: 'hidden',
         position: 'fixed',
         height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
       }}
     >
       {/* Sidebar Header */}
@@ -43,6 +57,7 @@ const Sidebar = ({
           justifyContent: isSidebarOpen ? 'space-between' : 'center',
           padding: 2,
           borderBottom: '1px solid #E0E0E0',
+          width: '100%',
         }}
       >
         <IconButton
@@ -65,7 +80,7 @@ const Sidebar = ({
       </Box>
 
       {/* Sidebar Links */}
-      <Box sx={{ mt: 2 }}>
+      <Box sx={{ mt: 2, width: '100%' }}>
         {sidebarOptions.map((item, index) => (
           <Box
             key={index}
@@ -107,7 +122,7 @@ const Sidebar = ({
         sx={{
           position: 'absolute',
           bottom: 16,
-          right: -20,
+          right: isSidebarOpen ? 20 : -20,
           color: '#393E46',
           backgroundColor: '#F9F9F9',
           borderRadius: '50%',
