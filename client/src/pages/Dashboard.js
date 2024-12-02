@@ -11,7 +11,10 @@ import {
     AppBar,
     Toolbar,
     InputBase,
-    LinearProgress,
+    CircularProgress,
+    List,
+    ListItem,
+    ListItemText,
 } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
@@ -21,15 +24,18 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import PeopleIcon from '@mui/icons-material/People';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MenuIcon from '@mui/icons-material/Menu';
-import BookIcon from '@mui/icons-material/Book';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import EventNoteIcon from '@mui/icons-material/EventNote';
-import RateReviewIcon from '@mui/icons-material/RateReview';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import StarsIcon from '@mui/icons-material/Stars';
 import logo from './assets/logo.png';
 
 const Dashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(true);
     const [selectedItem, setSelectedItem] = useState('Dashboard');
 
+    // Sidebar options with icons
     const sidebarOptions = [
         { label: 'Dashboard', icon: <DashboardIcon /> },
         { label: 'Course Selection', icon: <SchoolIcon /> },
@@ -38,11 +44,26 @@ const Dashboard = () => {
         { label: 'Settings', icon: <SettingsIcon /> },
     ];
 
+    // Dummy data
     const upcomingSessions = [
         { mentor: 'John Doe', date: 'Dec 6', time: '10:00 AM - 11:00 AM' },
         { mentor: 'Jane Smith', date: 'Dec 8', time: '2:00 PM - 3:00 PM' },
     ];
 
+    const currentCourses = {
+        semester: 'Fall 2024',
+        courses: [
+            'Data Structures',
+            'Algorithms',
+            'Operating Systems',
+            'Database Systems',
+        ],
+    };
+
+    const resumeScore = 85; // Out of 100
+    const projectsCompleted = 5;
+
+    // Calculate sidebar width
     const sidebarWidth = isSidebarOpen ? 240 : 80;
 
     return (
@@ -56,7 +77,7 @@ const Dashboard = () => {
                     transition: 'width 0.3s',
                     borderRight: '1px solid #E0E0E0',
                     overflow: 'hidden',
-                    position: 'fixed', 
+                    position: 'fixed',
                     height: '100vh',
                 }}
             >
@@ -119,7 +140,27 @@ const Dashboard = () => {
                             )}
                         </Box>
                     ))}
-                </Box>                
+                </Box>
+
+                {/* Expand/Collapse Button */}
+                <IconButton
+                    onClick={() => setSidebarOpen(!isSidebarOpen)}
+                    sx={{
+                        position: 'absolute',
+                        bottom: 16,
+                        right: -20,
+                        color: '#393E46',
+                        backgroundColor: '#F9F9F9',
+                        borderRadius: '50%',
+                        '&:hover': {
+                            backgroundColor: '#4880FF',
+                            color: '#FFFFFF',
+                        },
+                        transition: 'right 0.3s',
+                    }}
+                >
+                    {isSidebarOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                </IconButton>
             </Box>
 
             {/* Main Content */}
@@ -177,8 +218,11 @@ const Dashboard = () => {
                     </Toolbar>
                 </AppBar>
 
+                {/* Adjusted main content to account for fixed AppBar */}
                 <Box sx={{ marginTop: '64px', padding: 3 }}>
+                    {/* Main Grid */}
                     <Grid container spacing={3}>
+                        {/* Enhanced Progress Overview */}
                         <Grid item xs={12}>
                             <Paper
                                 sx={{
@@ -189,14 +233,139 @@ const Dashboard = () => {
                                 }}
                             >
                                 <Typography
-                                    variant="h6"
+                                    variant="h5"
                                     fontWeight="bold"
                                     sx={{ mb: 3, color: '#393E46' }}
                                 >
                                     Progress Overview
                                 </Typography>
                                 <Grid container spacing={3}>
-                                    <Grid item xs={12} sm={4}>
+                                    {/* Resume Score */}
+                                    <Grid item xs={12} sm={6} md={3}>
+                                        <Paper
+                                            sx={{
+                                                padding: 2,
+                                                textAlign: 'center',
+                                                border: '2px solid #00ACC1',
+                                                borderRadius: 4,
+                                                '&:hover': {
+                                                    backgroundColor: '#E0F7FA',
+                                                    transition: '0.3s',
+                                                },
+                                                position: 'relative',
+                                                minHeight: '250px',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            <Box
+                                                sx={{
+                                                    position: 'relative',
+                                                    display: 'inline-flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                }}
+                                            >
+                                                <CircularProgress
+                                                    variant="determinate"
+                                                    value={resumeScore}
+                                                    size={80}
+                                                    thickness={5}
+                                                    sx={{
+                                                        color: '#00ACC1',
+                                                    }}
+                                                />
+                                                <Box
+                                                    sx={{
+                                                        position: 'absolute',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                    }}
+                                                >
+                                                    <Typography
+                                                        variant="h5"
+                                                        color="#00ACC1"
+                                                        fontWeight="bold"
+                                                    >
+                                                        {resumeScore}%
+                                                    </Typography>
+                                                </Box>
+                                            </Box>
+                                            <Typography fontWeight="bold" sx={{ mt: 2 }}>
+                                                Resume Score
+                                            </Typography>
+                                        </Paper>
+                                    </Grid>
+
+                                    {/* Current Courses */}
+                                    <Grid item xs={12} sm={6} md={3}>
+                                        <Paper
+                                            sx={{
+                                                padding: 2,
+                                                textAlign: 'center',
+                                                border: '2px solid #8E24AA',
+                                                borderRadius: 4,
+                                                '&:hover': {
+                                                    backgroundColor: '#F3E5F5',
+                                                    transition: '0.3s',
+                                                },
+                                                minHeight: '250px',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'center',
+                                            }}
+                                        >
+                                            <AssignmentIcon sx={{ fontSize: 40, color: '#8E24AA' }} />
+                                            <Typography fontWeight="bold" sx={{ mt: 1 }}>
+                                                Current Courses
+                                            </Typography>
+                                            <Typography variant="subtitle1" color="#8E24AA">
+                                                {currentCourses.semester}
+                                            </Typography>
+                                            <List dense sx={{ width: '100%' }}>
+                                                {currentCourses.courses.map((course, index) => (
+                                                    <ListItem key={index} sx={{ padding: 0 }}>
+                                                        <ListItemText primary={course} />
+                                                    </ListItem>
+                                                ))}
+                                            </List>
+                                        </Paper>
+                                    </Grid>
+
+                                    {/* Projects Completed */}
+                                    <Grid item xs={12} sm={6} md={3}>
+                                        <Paper
+                                            sx={{
+                                                padding: 2,
+                                                textAlign: 'center',
+                                                border: '2px solid #43A047',
+                                                borderRadius: 4,
+                                                '&:hover': {
+                                                    backgroundColor: '#E8F5E9',
+                                                    transition: '0.3s',
+                                                },
+                                                minHeight: '250px',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            <StarsIcon sx={{ fontSize: 40, color: '#43A047' }} />
+                                            <Typography fontWeight="bold" sx={{ mt: 1 }}>
+                                                Projects Completed
+                                            </Typography>
+                                            <Typography variant="h5" color="#43A047">
+                                                {projectsCompleted}
+                                            </Typography>
+                                        </Paper>
+                                    </Grid>
+
+                                    {/* Completed Sessions */}
+                                    <Grid item xs={12} sm={6} md={3}>
                                         <Paper
                                             sx={{
                                                 padding: 2,
@@ -207,6 +376,11 @@ const Dashboard = () => {
                                                     backgroundColor: '#E3F2FD',
                                                     transition: '0.3s',
                                                 },
+                                                minHeight: '250px',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
                                             }}
                                         >
                                             <EventNoteIcon sx={{ fontSize: 40, color: '#4880FF' }} />
@@ -216,95 +390,14 @@ const Dashboard = () => {
                                             <Typography variant="h5" color="#4880FF">
                                                 12
                                             </Typography>
-                                            <LinearProgress
-                                                variant="determinate"
-                                                value={75}
-                                                sx={{
-                                                    backgroundColor: '#E3F2FD',
-                                                    height: 6,
-                                                    mt: 1,
-                                                    '& .MuiLinearProgress-bar': {
-                                                        backgroundColor: '#4880FF',
-                                                    },
-                                                }}
-                                            />
-                                        </Paper>
-                                    </Grid>
-
-                                    <Grid item xs={12} sm={4}>
-                                        <Paper
-                                            sx={{
-                                                padding: 2,
-                                                textAlign: 'center',
-                                                border: '2px solid #FFB74D',
-                                                borderRadius: 4,
-                                                '&:hover': {
-                                                    backgroundColor: '#FFF3E0',
-                                                    transition: '0.3s',
-                                                },
-                                            }}
-                                        >
-                                            <BookIcon sx={{ fontSize: 40, color: '#FFB74D' }} />
-                                            <Typography fontWeight="bold" sx={{ mt: 1 }}>
-                                                Courses Selected
-                                            </Typography>
-                                            <Typography variant="h5" color="#FFB74D">
-                                                8
-                                            </Typography>
-                                            <LinearProgress
-                                                variant="determinate"
-                                                value={60}
-                                                sx={{
-                                                    backgroundColor: '#FFF3E0',
-                                                    height: 6,
-                                                    mt: 1,
-                                                    '& .MuiLinearProgress-bar': {
-                                                        backgroundColor: '#FFB74D',
-                                                    },
-                                                }}
-                                            />
-                                        </Paper>
-                                    </Grid>
-
-                                    <Grid item xs={12} sm={4}>
-                                        <Paper
-                                            sx={{
-                                                padding: 2,
-                                                textAlign: 'center',
-                                                border: '2px solid #9C27B0',
-                                                borderRadius: 4,
-                                                '&:hover': {
-                                                    backgroundColor: '#F3E5F5',
-                                                    transition: '0.3s',
-                                                },
-                                            }}
-                                        >
-                                            <RateReviewIcon sx={{ fontSize: 40, color: '#9C27B0' }} />
-                                            <Typography fontWeight="bold" sx={{ mt: 1 }}>
-                                                Mentor Reviews
-                                            </Typography>
-                                            <Typography variant="h5" color="#9C27B0">
-                                                9
-                                            </Typography>
-                                            <LinearProgress
-                                                variant="determinate"
-                                                value={45}
-                                                sx={{
-                                                    backgroundColor: '#F3E5F5',
-                                                    height: 6,
-                                                    mt: 1,
-                                                    '& .MuiLinearProgress-bar': {
-                                                        backgroundColor: '#9C27B0',
-                                                    },
-                                                }}
-                                            />
                                         </Paper>
                                     </Grid>
                                 </Grid>
                             </Paper>
                         </Grid>
 
-                        <Grid item xs={12}>
+                        {/* Upcoming Sessions */}
+                        <Grid item xs={12} md={6}>
                             <Paper
                                 sx={{
                                     padding: 3,
@@ -341,7 +434,8 @@ const Dashboard = () => {
                             </Paper>
                         </Grid>
 
-                        <Grid item xs={12}>
+                        {/* Resources & Tips */}
+                        <Grid item xs={12} md={6}>
                             <Paper
                                 sx={{
                                     padding: 3,
