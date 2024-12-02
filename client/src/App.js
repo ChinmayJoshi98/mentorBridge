@@ -6,27 +6,30 @@ import AppLayout from './components/AppLayout';
 import Dashboard from './pages/Dashboard';
 import CourseSelectionLanding from './pages/courseSelection/CourseSelectionLanding';
 import CourseSelection from './pages/CourseSelection';
-// Import other pages as needed
+import { PlannerProvider } from './context/PlannerContext';
 
 function App() {
     return (
-        <Router>
-            <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={<Login />} />
-                <Route path="/signup" element={<SignUp />} />
+        <PlannerProvider>
+            <Router>
+                <Routes>
+                    {/* Public Routes */}
+                    <Route path="/" element={<Login />} />
+                    <Route path="/signup" element={<SignUp />} />
 
-                {/* Protected Routes with Layout */}
-                <Route element={<AppLayout />}>
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/course-selection" element={<CourseSelectionLanding />} />
-                    <Route path="/course-selection/plan" element={<CourseSelection />} />
-                    {/* Add other routes as needed */}
-                    {/* Redirect any unmatched routes to /dashboard */}
-                    <Route path="*" element={<Navigate to="/dashboard" replace />} />
-                </Route>
-            </Routes>
-        </Router>
+                    {/* Protected Routes with Layout */}
+                    <Route element={<AppLayout />}>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/course-selection" element={<CourseSelectionLanding />} />
+                        <Route path="/course-selection/plan" element={<CourseSelection />} />
+                        {/* Add other routes as needed */}
+                        {/* Redirect any unmatched routes to /dashboard */}
+                        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+                    </Route>
+                </Routes>
+            </Router>
+        </PlannerProvider>
+        
     );
 }
 
