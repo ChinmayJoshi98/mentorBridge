@@ -1,28 +1,42 @@
 import React, { useState } from 'react';
-import { Box, Stepper, Step, StepLabel, Button } from '@mui/material';
-import SemesterSelection from './courseSelection/SemesterSelection';
-import GraduationGoals from './courseSelection/GraduationGoals';
-import InterestsSelection from './courseSelection/InterestsSelection';
-import CourseRecommendations from './courseSelection/CourseRecommendations';
-import ReviewPlan from './courseSelection/ReviewPlan';
+import { Box, Stepper, Step, StepLabel, StepButton } from '@mui/material';
+import SemesterInput from '../pages/courseSelection/SemesterInput';
+import InterestsSelection from '../pages/courseSelection/InterestsSelection';
+import MentorRecommendations from '../pages/courseSelection/MentorRecommendations';
 
-const steps = [
-  'Select Semester',
-  'Set Graduation Goals',
-  'Select Interests',
-  'View Recommendations',
-  'Review and Save Plan',
-];
+const steps = ['Semesters Left', 'Select Interests', 'Recommendations'];
 
 const CourseSelection = () => {
-  const [activeStep, setActiveStep] = useState(0);
+  // Selection data
   const [selectionData, setSelectionData] = useState({
-    semester: '',
-    graduationGoals: '',
+    semestersLeft: '',
     interests: [],
-    selectedCourses: [],
   });
 
+  // Step management
+  const [activeStep, setActiveStep] = useState(0);
+  const [completed, setCompleted] = useState({});
+
+  // Handle step navigation
+  const handleStep = (step) => () => {
+    // Optional: Add validation logic to prevent navigating to future steps without completing current step
+    if (step <= activeStep || validateStep(step)) {
+      setActiveStep(step);
+    }
+  };
+
+  // Validation logic (you can enhance this as needed)
+  const validateStep = (step) => {
+    if (step === 1 && selectionData.semestersLeft === '') {
+      return false;
+    }
+    if (step === 2 && selectionData.interests.length === 0) {
+      return false;
+    }
+    return true;
+  };
+
+  // Handle Next and Back buttons
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -32,62 +46,39 @@ const CourseSelection = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', padding: 3 }}>
+    <Box>
+      {/* Stepper */}
       <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label) => (
+        {steps.map((label, index) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepButton onClick={handleStep(index)}>{label}</StepButton>
           </Step>
         ))}
       </Stepper>
-      <Box sx={{ marginTop: 3 }}>
+
+      {/* Step Content */}
+      <Box sx={{ mt: 4 }}>
         {activeStep === 0 && (
-          <SemesterSelection
+          <SemesterInput
             selectionData={selectionData}
             setSelectionData={setSelectionData}
+            handleNext={handleNext}
           />
         )}
         {activeStep === 1 && (
-          <GraduationGoals
-            selectionData={selectionData}
-            setSelectionData={setSelectionData}
-          />
-        )}
-        {activeStep === 2 && (
           <InterestsSelection
             selectionData={selectionData}
             setSelectionData={setSelectionData}
+            handleNext={handleNext}
+            handleBack={handleBack}
           />
         )}
-        {activeStep === 3 && (
-          <CourseRecommendations
+        {activeStep === 2 && (
+          <MentorRecommendations
             selectionData={selectionData}
-            setSelectionData={setSelectionData}
+            handleBack={handleBack}
           />
         )}
-        {activeStep === 4 && (
-          <ReviewPlan
-            selectionData={selectionData}
-            setSelectionData={setSelectionData}
-          />
-        )}
-      </Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-        <Button disabled={activeStep === 0} onClick={handleBack}>
-          Back
-        </Button>
-        <Button
-          variant="contained"
-          onClick={handleNext}
-          color="primary"
-          disabled={
-            (activeStep === 0 && !selectionData.semester) ||
-            (activeStep === 1 && !selectionData.graduationGoals) ||
-            (activeStep === 2 && selectionData.interests.length === 0)
-          }
-        >
-          {activeStep === steps.length - 1 ? 'Save Plan' : 'Next'}
-        </Button>
       </Box>
     </Box>
   );

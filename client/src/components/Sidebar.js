@@ -5,7 +5,7 @@ import {
   ChevronRight as ChevronRightIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
 
 const Sidebar = ({
   isSidebarOpen,
@@ -17,11 +17,9 @@ const Sidebar = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleNavigation = (label) => {
-    setSelectedItem(label);
-    if (label === 'Dashboard') navigate('/dashboard');
-    else if (label === 'Course Selection') navigate('/course-selection');
-    // Add more navigation as needed
+  const handleNavigation = (option) => {
+    setSelectedItem(option.label);
+    navigate(option.path);
   };
 
   return (
@@ -47,15 +45,23 @@ const Sidebar = ({
           borderBottom: '1px solid #E0E0E0',
         }}
       >
-        <img
-          src={logo}
-          alt="mentorBridge Logo"
-          style={{
-            height: isSidebarOpen ? '65px' : '15px',
-            cursor: 'pointer',
-            transition: 'height 0.3s',
+        <IconButton
+          onClick={() => {
+            setSelectedItem('Dashboard');
+            navigate('/dashboard');
           }}
-        />
+          sx={{ p: 0 }}
+        >
+          <img
+            src={logo}
+            alt="mentorBridge Logo"
+            style={{
+              height: isSidebarOpen ? '65px' : '15px',
+              cursor: 'pointer',
+              transition: 'height 0.3s',
+            }}
+          />
+        </IconButton>
       </Box>
 
       {/* Sidebar Links */}
@@ -63,7 +69,7 @@ const Sidebar = ({
         {sidebarOptions.map((item, index) => (
           <Box
             key={index}
-            onClick={() => handleNavigation(item.label)}
+            onClick={() => handleNavigation(item)}
             sx={{
               display: 'flex',
               alignItems: 'center',
