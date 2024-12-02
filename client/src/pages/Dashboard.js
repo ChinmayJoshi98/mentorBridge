@@ -8,14 +8,13 @@ import SchoolIcon from '@mui/icons-material/School';
 import DescriptionIcon from '@mui/icons-material/Description';
 import PeopleIcon from '@mui/icons-material/People';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Sidebar from '../components/Sidebar';
 import ResourcesTips from '../components/ResourceTips';
+import Sidebar from '../components/Sidebar';
 
 const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [selectedItem, setSelectedItem] = useState('Dashboard');
 
-  // Sidebar options with icons
   const sidebarOptions = [
     { label: 'Dashboard', icon: <DashboardIcon /> },
     { label: 'Course Selection', icon: <SchoolIcon /> },
@@ -24,7 +23,6 @@ const Dashboard = () => {
     { label: 'Settings', icon: <SettingsIcon /> },
   ];
 
-  // Dummy data
   const upcomingSessions = [
     { mentor: 'John Doe', date: 'Dec 6', time: '10:00 AM - 11:00 AM' },
     { mentor: 'Jane Smith', date: 'Dec 8', time: '2:00 PM - 3:00 PM' },
@@ -37,7 +35,7 @@ const Dashboard = () => {
   ];
 
   const currentCourses = {
-    semester: 'Fall 2023',
+    semester: 'Fall 2024',
     courses: [
       'Data Structures',
       'Algorithms',
@@ -46,11 +44,10 @@ const Dashboard = () => {
     ],
   };
 
-  const resumeScore = 85; // Out of 100
-  const projectsCompleted = 5;
-  const completedSessions = 12;
+  const resumeScore = 85;
+  const projectsCompleted = 3;
+  const completedSessions = 4;
 
-  // Calculate sidebar width
   const sidebarWidth = isSidebarOpen ? 240 : 80;
 
   return (
