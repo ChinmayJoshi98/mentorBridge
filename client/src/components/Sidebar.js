@@ -74,6 +74,7 @@ const Sidebar = ({
               height: isSidebarOpen ? '65px' : '15px',
               cursor: 'pointer',
               transition: 'height 0.3s',
+              marginLeft: '10px',
             }}
           />
         </IconButton>
