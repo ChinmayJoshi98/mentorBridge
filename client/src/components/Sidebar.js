@@ -6,6 +6,7 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 const Sidebar = ({
   isSidebarOpen,
