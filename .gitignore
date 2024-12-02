@@ -10,3 +10,6 @@ client/build/
 
 # System files
 .DS_Store
+
+#ngrok
+node_modules
