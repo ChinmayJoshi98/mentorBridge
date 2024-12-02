@@ -9,8 +9,8 @@ import {
     Link,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import backgroundImage from './assets/bg.png';
-import logo from './assets/logo.png';
+import backgroundImage from '../assets/bg.png';
+import logo from '../assets/logo.png';
 
 const Login = () => {
     const [email, setEmail] = useState('');
