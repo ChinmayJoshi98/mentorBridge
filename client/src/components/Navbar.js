@@ -1,3 +1,5 @@
+// src/components/Navbar.js
+
 import React, { useContext, useState } from 'react';
 import {
   AppBar,
@@ -29,13 +31,7 @@ const Navbar = ({ isSidebarOpen, setSidebarOpen, sidebarWidth }) => {
   const handleNotificationClick = (notification) => {
     removeNotification(notification.id);
     setAnchorEl(null);
-
-    // Pass the mentor data if available
-    if (notification.mentor) {
-      navigate(notification.link, { state: { mentor: notification.mentor } });
-    } else {
-      navigate(notification.link);
-    }
+    navigate(notification.link);
   };
 
   const handleClose = () => {

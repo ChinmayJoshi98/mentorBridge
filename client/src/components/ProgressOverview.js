@@ -1,18 +1,12 @@
 import React from 'react';
-import { Grid, Typography, Paper } from '@mui/material';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Grid, Typography, Paper, Box } from '@mui/material';
 import ProgressCard from './ProgressCard';
 import PlannerSummaryCard from './PlannerSummaryCard';
 import CurrentMentorCard from './CurrentMentorCard';
-import { Link as RouterLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { ResumeContext } from '../context/ResumeContext';
 
-const ProgressOverview = ({
-  currentCourses,
-  plannerCourses,
-  currentMentor,
-}) => {
+const ProgressOverview = ({ currentCourses, plannerCourses, currentMentor }) => {
   const { resumeScore, hasNewResumeScore } = useContext(ResumeContext);
 
   return (
@@ -21,52 +15,66 @@ const ProgressOverview = ({
         padding: 3,
         borderRadius: 4,
         backgroundColor: '#FFFFFF',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+        marginBottom: 4,
+        paddingBottom: 5,
       }}
     >
-      <Typography
-        variant="h5"
-        fontWeight="bold"
-        sx={{ mb: 3, color: '#393E46' }}
-      >
-        Progress Overview
-      </Typography>
-      <Grid container spacing={2}>
-        {/* Resume Score */}
-        <Grid item xs={12} sm={6} md={3}>
-          <ProgressCard
-            title="Latest Resume Score"
-            value={resumeScore}
-            icon={<AssignmentIcon sx={{ fontSize: 40, color: '#00ACC1' }} />}
-            color="#00ACC1"
-            progressType="circular"
-            link="/resume-review/feedback"
-            flash={hasNewResumeScore}
-          />
-        </Grid>
+      <Box sx={{ padding: 2 }}>
+        <Typography
+          variant="h5"
+          fontWeight="bold"
+          sx={{ mb: 3, color: '#393E46', textAlign: 'center' }}
+        >
+          Progress Overview
+        </Typography>
+        <Grid
+          container
+          spacing={3}
+          alignItems="stretch" // Ensure equal height for all cards
+        >
+          {/* Resume Score */}
+          <Grid item xs={12} sm={6} md={3}>
+            <ProgressCard
+              title="Latest Resume Score"
+              value={resumeScore || 0}
+              image="/assets/dashboard/resume_score.png"
+              color="#00ACC1"
+              progressType="circular"
+              link="/resume-review/feedback"
+              flash={hasNewResumeScore}
+            />
+          </Grid>
 
-        {/* Current Courses */}
-        <Grid item xs={12} sm={6} md={3}>
-          <ProgressCard
-            title="Current Courses"
-            value={currentCourses.semester}
-            icon={<AssignmentIcon sx={{ fontSize: 40, color: '#8E24AA' }} />}
-            color="#8E24AA"
-            progressType="list"
-            listItems={currentCourses.courses}
-          />
-        </Grid>
+          {/* Current Courses */}
+          <Grid item xs={12} sm={6} md={3}>
+            <ProgressCard
+              title="Current Courses"
+              value={currentCourses.semester || 'N/A'}
+              image="/assets/dashboard/current_courses.png"
+              color="#8E24AA"
+              progressType="list"
+              listItems={currentCourses.courses || []}
+            />
+          </Grid>
 
-        {/* Planner Summary */}
-        <Grid item xs={12} sm={6} md={3}>
-          <PlannerSummaryCard plannerCourses={plannerCourses} />
-        </Grid>
+          {/* Planner Summary */}
+          <Grid item xs={12} sm={6} md={3} style={{maxHeight: '395px'}}>
+            <PlannerSummaryCard
+              plannerCourses={plannerCourses || []}
+              image="/assets/dashboard/planner_summary.png"
+            />
+          </Grid>
 
-        {/* Current Mentor */}
-        <Grid item xs={12} sm={6} md={3}>
-          <CurrentMentorCard mentor={currentMentor} />
+          {/* Current Mentor */}
+          <Grid item xs={12} sm={6} md={3} style={{maxHeight: '395px'}}>
+            <CurrentMentorCard
+              mentor={currentMentor}
+              image="/assets/dashboard/current_mentor.png"
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </Paper>
   );
 };
