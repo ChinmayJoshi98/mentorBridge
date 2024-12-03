@@ -1,0 +1,111 @@
+/* src/pages/CalendarPage.css */
+
+.react-calendar {
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.125em;
+  color: #393E46;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  height: 50px;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.react-calendar__navigation button {
+  color: #4880FF;
+  min-width: 44px;
+  background: none;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #E3F2FD;
+  border-radius: 8px;
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: bold;
+  color: #4880FF;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em 0;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.react-calendar__tile {
+  max-width: 100%;
+  text-align: center;
+  padding: 0.75em 0.5em;
+  background: none;
+  border: 1px solid #E0E0E0;
+  border-top: none;
+  border-left: none;
+  margin: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.react-calendar__month-view__days__day {
+  flex-basis: 14.2857%; /* Ensure each day takes up 1/7th of the row */
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  flex-basis: 14.2857%;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background: #E3F2FD;
+  color: #4880FF;
+}
+
+.react-calendar__tile--active {
+  background: #4880FF !important;
+  color: white !important;
+}
+
+.react-calendar__tile--now {
+  background: #FFECB3 !important;
+}
+
+/* Underline the day number for days with meetings */
+.react-calendar__tile.meeting-day abbr {
+  text-decoration: underline;
+  text-decoration-color: #4880FF;
+  text-decoration-thickness: 2px;
+}
+
+/* Alternatively, position the dot properly */
+.react-calendar__tile.meeting-day::after {
+  content: '';
+  position: absolute;
+  bottom: 5px; /* Adjust this value to position the dot */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #4880FF;
+  border-radius: 50%;
+}
+
+/* If you prefer to use the dot, comment out the underline style */
+.react-calendar__tile.meeting-day abbr {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .react-calendar {
+    font-size: 0.8em;
+  }
+}

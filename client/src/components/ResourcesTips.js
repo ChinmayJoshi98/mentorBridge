@@ -28,7 +28,7 @@ const ResourcesTips = ({ resources }) => (
     <Typography
       variant="h6"
       fontWeight="bold"
-      sx={{ mb: 2, color: '#393E46' }}
+      sx={{ mb: 2, textAlign: 'center', color: '#393E46' }}
     >
       Resources & Tips
     </Typography>

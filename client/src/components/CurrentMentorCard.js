@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  Paper,
-  Typography,
-  Avatar,
-  Box,
-  Chip,
-} from '@mui/material';
-import PeopleIcon from '@mui/icons-material/People';
+import { Paper, Typography, Avatar, Box, Chip } from '@mui/material';
 
-const CurrentMentorCard = ({ mentor }) => (
+const CurrentMentorCard = ({ mentor, image }) => (
   <Paper
     sx={{
       padding: 2,
@@ -17,18 +10,39 @@ const CurrentMentorCard = ({ mentor }) => (
       borderRadius: 4,
       '&:hover': {
         backgroundColor: `#4880FF20`,
-        transition: '0.3s',
+        boxShadow: '0px 6px 16px rgba(0, 0, 0, 0.2)',
+        transform: 'scale(1.02)', // Add hover scaling
+        transition: 'all 0.3s ease',
       },
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
-      boxSizing: 'border-box',
     }}
   >
-    <Box sx={{ mt: 1, mb: 1 }}>
-      <PeopleIcon sx={{ fontSize: 40, color: '#4880FF' }} />
-      <Typography fontWeight="bold" sx={{ mt: 1 }}>
+    <Box
+      sx={{
+        backgroundColor: '#4880FF10',
+        padding: 2,
+        borderRadius: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <Box
+        component="img"
+        src={image}
+        alt="Current Mentor"
+        sx={{
+          maxWidth: '80px',
+          height: 'auto',
+          objectFit: 'contain',
+          borderRadius: '8px',
+          marginBottom: '8px',
+        }}
+      />
+      <Typography fontWeight="bold" color="#4880FF" sx={{ mt: 1 }}>
         Current Mentor
       </Typography>
     </Box>
@@ -39,6 +53,7 @@ const CurrentMentorCard = ({ mentor }) => (
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        mt: 2,
       }}
     >
       {mentor ? (
@@ -57,6 +72,7 @@ const CurrentMentorCard = ({ mentor }) => (
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'center',
+              gap: 1,
             }}
           >
             {mentor.interests.slice(0, 3).map((interest, index) => (
@@ -64,10 +80,9 @@ const CurrentMentorCard = ({ mentor }) => (
                 label={interest}
                 key={index}
                 sx={{
-                  mr: 0.5,
-                  mb: 0.5,
                   backgroundColor: '#43A04720',
                   color: '#43A047',
+                  fontWeight: 'bold',
                 }}
               />
             ))}
@@ -75,10 +90,9 @@ const CurrentMentorCard = ({ mentor }) => (
               <Chip
                 label={`+${mentor.interests.length - 3} more`}
                 sx={{
-                  mr: 0.5,
-                  mb: 0.5,
                   backgroundColor: '#E0E0E0',
                   color: '#000000',
+                  fontStyle: 'italic',
                 }}
               />
             )}

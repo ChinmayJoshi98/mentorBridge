@@ -1,3 +1,5 @@
+// src/components/AppLayout.js
+
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Outlet, useLocation } from 'react-router-dom';
@@ -6,8 +8,8 @@ import Sidebar from './Sidebar';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SchoolIcon from '@mui/icons-material/School';
 import DescriptionIcon from '@mui/icons-material/Description';
-import PeopleIcon from '@mui/icons-material/People';
-import SettingsIcon from '@mui/icons-material/Settings';
+import EventNoteIcon from '@mui/icons-material/EventNote'; // Added icon
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday'; // Added icon
 
 const AppLayout = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -19,8 +21,9 @@ const AppLayout = () => {
     { label: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
     { label: 'Course Selection', icon: <SchoolIcon />, path: '/course-selection' },
     { label: 'Resume Review', icon: <DescriptionIcon />, path: '/resume-review' },
-    { label: 'Networking', icon: <PeopleIcon />, path: '/networking' },
-    { label: 'Settings', icon: <SettingsIcon />, path: '/settings' },
+    { label: 'Interview Preparation', icon: <EventNoteIcon />, path: '/interview-preparation' }, // Added
+    { label: 'Calendar', icon: <CalendarTodayIcon />, path: '/calendar' }, // Added
+    // ... other options
   ];
 
   // Map paths to sidebar labels
@@ -29,10 +32,10 @@ const AppLayout = () => {
     '/course-selection': 'Course Selection',
     '/course-selection/plan': 'Course Selection',
     '/resume-review': 'Resume Review',
-    '/networking': 'Networking',
-    '/settings': 'Settings',
-    // Add other paths as needed
-  };  
+    '/interview-preparation': 'Interview Preparation', // Added
+    '/calendar': 'Calendar', // Added
+    // ... other paths
+  };
 
   useEffect(() => {
     // Get the current path

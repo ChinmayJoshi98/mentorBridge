@@ -1,3 +1,5 @@
+// src/pages/Dashboard.js
+
 import React, { useContext } from 'react';
 import { Box, Grid } from '@mui/material';
 import ProgressOverview from '../components/ProgressOverview';
@@ -16,18 +18,6 @@ const Dashboard = () => {
       'Database Systems',
     ],
   };
-  const upcomingSessions = [
-    {
-      mentor: 'Alice Johnson',
-      date: 'Oct 15, 2023',
-      time: '10:00 AM',
-    },
-    {
-      mentor: 'Bob Smith',
-      date: 'Oct 20, 2023',
-      time: '2:00 PM',
-    },
-  ];
   const resources = [
     { title: 'How to Ace Interviews?', author: 'Mentor X' },
     { title: 'Top Courses for Data Science', author: 'Mentor Y' },
@@ -58,7 +48,7 @@ const Dashboard = () => {
 
         {/* Upcoming Sessions */}
         <Grid item xs={12} md={6}>
-          <UpcomingSessions upcomingSessions={upcomingSessions} />
+          <UpcomingSessions />
         </Grid>
 
         {/* Resources & Tips */}

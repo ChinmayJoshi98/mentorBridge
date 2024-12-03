@@ -13,7 +13,7 @@ import { Link as RouterLink } from 'react-router-dom';
 const ProgressCard = ({
   title,
   value,
-  icon,
+  image, // Accept image instead of icon
   color,
   progressType, // 'circular', 'number', or 'list'
   listItems,
@@ -39,7 +39,9 @@ const ProgressCard = ({
         borderRadius: 4,
         '&:hover': {
           backgroundColor: `${color}20`,
-          transition: '0.3s',
+          transform: 'scale(1.02)',
+          boxShadow: '0px 6px 16px rgba(0, 0, 0, 0.2)',
+          transition: 'all 0.3s ease',
         },
         height: '100%',
         display: 'flex',
@@ -51,7 +53,19 @@ const ProgressCard = ({
       }}
     >
       <Box sx={{ mt: 1, mb: 1 }}>
-        {icon}
+        {/* Display image */}
+        <Box
+          component="img"
+          src={image}
+          alt={title}
+          sx={{
+            maxWidth: '80%',
+            height: 120,
+            objectFit: 'contain',
+            borderRadius: '8px',
+            margin: '0 auto',
+          }}
+        />
         <Typography fontWeight="bold" sx={{ mt: 1 }}>
           {title}
         </Typography>
@@ -120,11 +134,7 @@ const ProgressCard = ({
             </Typography>
             <List dense sx={{ width: '100%' }}>
               {listItems.map((item, index) => (
-                <ListItem
-                  key={index}
-                  disableGutters
-                  sx={{ justifyContent: 'center' }}
-                >
+                <ListItem key={index} disableGutters>
                   <ListItemText
                     primary={item}
                     primaryTypographyProps={{
