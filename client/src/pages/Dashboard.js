@@ -10,7 +10,7 @@ import { PlannerContext } from '../context/PlannerContext';
 const Dashboard = () => {
   const resumeScore = 85;
   const currentCourses = {
-    semester: 'Fall 2024',
+    semester: 'Fall 2023',
     courses: [
       'Data Structures',
       'Algorithms',
