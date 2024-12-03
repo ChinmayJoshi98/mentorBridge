@@ -13,7 +13,10 @@ import {
   ListItem,
   ListItemText,
   IconButton,
+  Snackbar,
+  Alert,
   Divider,
+  Rating,
 } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -31,11 +34,12 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
   const [filteredMentors, setFilteredMentors] = useState([]);
   const [coursePlan, setCoursePlan] = useState([]);
   const [chatMentor, setChatMentor] = useState(null);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const { plannerCourses, addCourse, removeCourse } = useContext(PlannerContext);
 
   useEffect(() => {
-    // Filter mentors based on interests
     const mentors = mentorsData.filter((mentor) =>
       mentor.interests.some((interest) =>
         selectionData.interests.includes(interest)
@@ -43,7 +47,6 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
     );
     setFilteredMentors(mentors);
 
-    // Generate course plan with proper semester naming
     const plan = generateCoursePlan(
       parseInt(selectionData.semestersLeft),
       selectionData.interests
@@ -58,6 +61,24 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
     setChatMentor(mentor);
   };
 
+  const handleAddCourse = (course, semester) => {
+    const updatedCourse = { ...course, semester: semester };
+    addCourse(updatedCourse);
+    setSnackbarMessage(`Added ${course.name} to planner.`);
+    setSnackbarOpen(true);
+  };  
+  
+
+  const handleRemoveCourse = (course) => {
+    removeCourse(course.name);
+    setSnackbarMessage(`Removed ${course.name} from planner.`);
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
   const isInterestSelected = (interest) =>
     selectionData.interests.includes(interest);
 
@@ -66,6 +87,7 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
 
   return (
     <Box>
+      {/* Recommended Mentors */}
       <Typography variant="h5" fontWeight="bold" sx={{ mb: 3 }}>
         Recommended Mentors
       </Typography>
@@ -156,6 +178,7 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
         ))}
       </Grid>
 
+      {/* Suggested Course Plan */}
       <Typography variant="h5" fontWeight="bold" sx={{ mt: 5, mb: 3 }}>
         Suggested Semester Plan
       </Typography>
@@ -174,42 +197,157 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
               }}
             >
               <CardContent>
-                <Typography variant="h6" fontWeight="bold" sx={{ mb: 1 }}>
+                <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
                   {semester.semester}
                 </Typography>
                 <List dense>
-                  {semester.courses.map((course, idx) => (
-                    <ListItem
-                      key={idx}
-                      secondaryAction={
-                        isCourseInPlanner(course) ? (
-                          <IconButton
-                            edge="end"
-                            aria-label="remove"
-                            onClick={() => removeCourse(course.name)}
-                          >
-                            <RemoveCircleOutlineIcon color="error" />
-                          </IconButton>
-                        ) : (
-                          <IconButton
-                            edge="end"
-                            aria-label="add"
-                            onClick={() => addCourse(course)}
-                          >
-                            <AddCircleOutlineIcon color="primary" />
-                          </IconButton>
-                        )
-                      }
-                    >
-                      <ListItemText primary={course.name} />
-                    </ListItem>
-                  ))}
-                </List>
+  {semester.courses.map((course, idx) => (
+    <ListItem
+      key={idx}
+      secondaryAction={
+        isCourseInPlanner(course) ? (
+          <IconButton
+            edge="end"
+            aria-label="remove"
+            onClick={() => handleRemoveCourse(course)}
+          >
+            <RemoveCircleOutlineIcon color="error" />
+          </IconButton>
+        ) : (
+          <IconButton
+            edge="end"
+            aria-label="add"
+            onClick={() => handleAddCourse(course, semester.semester)} // Pass semester here
+          >
+            <AddCircleOutlineIcon color="primary" />
+          </IconButton>
+        )
+      }
+    >
+      <ListItemText
+        primary={
+          <>
+            <Typography variant="subtitle1" fontWeight="bold">
+              {course.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              Instructor: {course.instructor || 'TBD'}
+            </Typography>
+          </>
+        }
+        secondary={
+          course.rating && (
+            <Rating
+              name="read-only"
+              value={course.rating}
+              readOnly
+              precision={0.5}
+              size="small"
+            />
+          )
+        }
+      />
+    </ListItem>
+  ))}
+</List>
               </CardContent>
             </Card>
           </Grid>
         ))}
       </Grid>
+
+      {/* Planner Summary */}
+<Typography variant="h5" fontWeight="bold" sx={{ mt: 5, mb: 3 }}>
+  Planner Summary
+</Typography>
+<Card
+  sx={{
+    borderRadius: 4,
+    padding: 3,
+    backgroundColor: '#F9F9F9',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+  }}
+>
+  {plannerCourses.length > 0 ? (
+    Object.entries(
+      plannerCourses.reduce((acc, course) => {
+        if (!acc[course.semester]) acc[course.semester] = [];
+        acc[course.semester].push(course);
+        return acc;
+      }, {})
+    ).map(([semester, courses]) => (
+      <Box key={semester} sx={{ mb: 3 }}>
+        <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
+          {semester}
+        </Typography>
+        <List>
+          {courses.map((course, index) => (
+            <React.Fragment key={index}>
+              <ListItem
+                secondaryAction={
+                  <IconButton
+                    edge="end"
+                    aria-label="remove"
+                    onClick={() => removeCourse(course.name)}
+                  >
+                    <RemoveCircleOutlineIcon color="error" />
+                  </IconButton>
+                }
+              >
+                <ListItemText
+                  primary={course.name}
+                  secondary={
+                    <>
+                      <Typography variant="body2" color="textSecondary">
+                        Instructor: {course.instructor || 'TBD'}
+                      </Typography>
+                      {course.rating && (
+                        <Box
+                          sx={{ display: 'flex', alignItems: 'center', mt: 1 }}
+                        >
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                            sx={{ mr: 1 }}
+                          >
+                            Rating: {course.rating.toFixed(1)}
+                          </Typography>
+                          <Rating
+                            name="read-only"
+                            value={course.rating}
+                            readOnly
+                            precision={0.5}
+                            size="small"
+                          />
+                        </Box>
+                      )}
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        sx={{ mt: 1 }}
+                      >
+                        Planned for: {course.semester}
+                      </Typography>
+                    </>
+                  }
+                />
+              </ListItem>
+              {index < courses.length - 1 && <Divider />}
+            </React.Fragment>
+          ))}
+        </List>
+      </Box>
+    ))
+  ) : (
+    <Typography
+      variant="body2"
+      color="textSecondary"
+      sx={{ textAlign: 'center' }}
+    >
+      No courses added to the planner yet.
+    </Typography>
+  )}
+</Card>
 
       <Box sx={{ mt: 3, display: 'flex', justifyContent: 'space-between' }}>
         <Button variant="outlined" onClick={handleBack}>
@@ -227,6 +365,21 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
       {chatMentor && (
         <ChatWindow mentor={chatMentor} onClose={() => setChatMentor(null)} />
       )}
+
+      {/* Snackbar */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarMessage.includes('Added') ? 'success' : 'error'}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
