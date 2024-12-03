@@ -13,9 +13,12 @@ import {
   ListItem,
   ListItemText,
   IconButton,
+  Divider,
 } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import WorkIcon from '@mui/icons-material/Work';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useNavigate } from 'react-router-dom';
 import { mentorsData } from '../../data/mentorsData';
 import { generateCoursePlan } from '../../utils/coursePlanGenerator';
@@ -55,11 +58,9 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
     setChatMentor(mentor);
   };
 
-  // Function to check if interest is selected by user
   const isInterestSelected = (interest) =>
     selectionData.interests.includes(interest);
 
-  // Function to check if course is in planner
   const isCourseInPlanner = (course) =>
     plannerCourses.some((c) => c.name === course.name);
 
@@ -68,33 +69,72 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
       <Typography variant="h5" fontWeight="bold" sx={{ mb: 3 }}>
         Recommended Mentors
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {filteredMentors.map((mentor) => (
           <Grid item xs={12} sm={6} md={4} key={mentor.id}>
-            <Card>
+            <Card
+              sx={{
+                borderRadius: 4,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                '&:hover': {
+                  boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
+                  transform: 'scale(1.02)',
+                  transition: 'all 0.3s ease',
+                },
+              }}
+            >
               <CardHeader
                 avatar={
-                  <Avatar src={mentor.profilePic} alt={mentor.name}>
-                    {mentor.name[0]}
-                  </Avatar>
+                  <Avatar
+                    src={mentor.profilePic}
+                    alt={mentor.name}
+                    sx={{ width: 56, height: 56 }}
+                  />
                 }
-                title={mentor.name}
+                title={
+                  <Typography variant="h6" fontWeight="bold">
+                    {mentor.name}
+                  </Typography>
+                }
+                subheader={
+                  <Typography variant="body2" color="textSecondary">
+                    {mentor.role} at {mentor.company}
+                  </Typography>
+                }
               />
+              <Divider />
               <CardContent>
-                <Box sx={{ mb: 1 }}>
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  sx={{ mb: 2 }}
+                >
+                  <WorkIcon sx={{ fontSize: 16, verticalAlign: 'middle', mr: 0.5 }} />
+                  {mentor.expertise.join(', ')}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  sx={{ mb: 2 }}
+                >
+                  <LocationOnIcon
+                    sx={{ fontSize: 16, verticalAlign: 'middle', mr: 0.5 }}
+                  />
+                  Based in {mentor.location || 'Unknown'}
+                </Typography>
+                <Box sx={{ mb: 2, display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                   {mentor.interests.map((interest, index) => (
                     <Chip
                       label={interest}
                       key={index}
                       sx={{
-                        mr: 1,
-                        mb: 1,
                         backgroundColor: isInterestSelected(interest)
-                          ? '#43A04720' // Light green background
+                          ? '#43A04720'
                           : '#E0E0E0',
                         color: isInterestSelected(interest)
                           ? '#43A047'
                           : '#000000',
+                        fontWeight: 'bold',
                       }}
                     />
                   ))}
@@ -103,6 +143,10 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
                   variant="contained"
                   size="small"
                   onClick={() => handleConnect(mentor)}
+                  sx={{
+                    backgroundColor: '#4880FF',
+                    '&:hover': { backgroundColor: '#306AC9' },
+                  }}
                 >
                   Connect
                 </Button>
@@ -112,14 +156,23 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
         ))}
       </Grid>
 
-      {/* Suggested Course Plan */}
       <Typography variant="h5" fontWeight="bold" sx={{ mt: 5, mb: 3 }}>
         Suggested Semester Plan
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {coursePlan.map((semester, index) => (
           <Grid item xs={12} md={6} key={index}>
-            <Card>
+            <Card
+              sx={{
+                borderRadius: 4,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                '&:hover': {
+                  boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
+                  transform: 'scale(1.02)',
+                  transition: 'all 0.3s ease',
+                },
+              }}
+            >
               <CardContent>
                 <Typography variant="h6" fontWeight="bold" sx={{ mb: 1 }}>
                   {semester.semester}
@@ -171,7 +224,6 @@ const MentorRecommendations = ({ selectionData, handleBack }) => {
         </Button>
       </Box>
 
-      {/* Chat Window */}
       {chatMentor && (
         <ChatWindow mentor={chatMentor} onClose={() => setChatMentor(null)} />
       )}

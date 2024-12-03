@@ -17,7 +17,7 @@ const CourseSelectionLanding = () => {
   const navigate = useNavigate();
 
   const currentCourses = {
-    semester: 'Fall 2024',
+    semester: 'Fall 2023',
     courses: [
       'Data Structures',
       'Algorithms',
