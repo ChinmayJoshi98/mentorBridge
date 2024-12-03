@@ -7,6 +7,7 @@ export const mentorsData = [
     expertise: ['Frontend Developer', 'UI/UX Designer'],
     company: 'Google',
     role: 'Senior Software Engineer',
+    location: 'Chicago, IL',
     helpedCount: 12,
     feedback: [
       'Your projects are impressive.',
@@ -22,6 +23,7 @@ export const mentorsData = [
     expertise: ['Data Scientist', 'Machine Learning Engineer'],
     company: 'Facebook',
     role: 'Data Scientist',
+    location: 'Los Angeles, CA',
     helpedCount: 8,
     feedback: [
       'Focus on including more data visualizations.',
@@ -37,6 +39,7 @@ export const mentorsData = [
     expertise: ['Mobile App Developer', 'iOS Developer'],
     company: 'Apple',
     role: 'iOS Developer',
+    location: 'San Diego, CA',
     helpedCount: 5,
     feedback: [
       'Include links to your mobile apps on app stores.',
@@ -52,6 +55,7 @@ export const mentorsData = [
     expertise: ['DevOps Engineer', 'Cloud Architect'],
     company: 'Amazon',
     role: 'DevOps Engineer',
+    location: 'Orlanda, FL',
     helpedCount: 10,
     feedback: [
       'Add certifications for AWS or Azure.',
@@ -67,6 +71,7 @@ export const mentorsData = [
     expertise: ['Cybersecurity Specialist', 'Network Engineer'],
     company: 'Cisco',
     role: 'Network Security Engineer',
+    location: 'Miami, FL',
     helpedCount: 7,
     feedback: [
       'Emphasize certifications like CEH or CISSP.',
@@ -82,6 +87,7 @@ export const mentorsData = [
     expertise: ['Data Engineer', 'Big Data Analyst'],
     company: 'Microsoft',
     role: 'Data Engineer',
+    location: 'New York City, NY',
     helpedCount: 9,
     feedback: [
       'Highlight your experience with large datasets.',

@@ -27,6 +27,7 @@ import ScheduleMeeting from './pages/ScheduleMeeting';
 import CalendarPage from './pages/CalendarPage';
 import ChatWindow from './pages/courseSelection/ChatWindow';
 import { MeetingProvider } from './context/MeetingContext';
+import PlannerSummaryPage from './pages/PlannerSummaryPage';
 
 function App() {
   const currentResume = {
@@ -88,6 +89,7 @@ function App() {
                     <Route path="/chat/:mentorId" element={<ChatWindow />} />
 
                     <Route path="*" element={<Navigate to="/dashboard" replace />} />
+                    <Route path="/planner-summary" element={<PlannerSummaryPage />} />
                   </Route>
                 </Routes>
               </Router>

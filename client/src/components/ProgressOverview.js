@@ -5,6 +5,7 @@ import PlannerSummaryCard from './PlannerSummaryCard';
 import CurrentMentorCard from './CurrentMentorCard';
 import { useContext } from 'react';
 import { ResumeContext } from '../context/ResumeContext';
+import { Link } from 'react-router-dom'; // Import Link from React Router
 
 const ProgressOverview = ({ currentCourses, plannerCourses, currentMentor }) => {
   const { resumeScore, hasNewResumeScore } = useContext(ResumeContext);
@@ -28,11 +29,7 @@ const ProgressOverview = ({ currentCourses, plannerCourses, currentMentor }) => 
         >
           Progress Overview
         </Typography>
-        <Grid
-          container
-          spacing={3}
-          alignItems="stretch" // Ensure equal height for all cards
-        >
+        <Grid container spacing={3} alignItems="stretch">
           {/* Resume Score */}
           <Grid item xs={12} sm={6} md={3}>
             <ProgressCard
@@ -59,15 +56,17 @@ const ProgressOverview = ({ currentCourses, plannerCourses, currentMentor }) => 
           </Grid>
 
           {/* Planner Summary */}
-          <Grid item xs={12} sm={6} md={3} style={{maxHeight: '395px'}}>
-            <PlannerSummaryCard
-              plannerCourses={plannerCourses || []}
-              image="/assets/dashboard/planner_summary.png"
-            />
+          <Grid item xs={12} sm={6} md={3} style={{ maxHeight: '395px' }}>
+            <Link to="/planner-summary" style={{ textDecoration: 'none' }}>
+              <PlannerSummaryCard
+                plannerCourses={plannerCourses || []}
+                image="/assets/dashboard/planner_summary.png"
+              />
+            </Link>
           </Grid>
 
           {/* Current Mentor */}
-          <Grid item xs={12} sm={6} md={3} style={{maxHeight: '395px'}}>
+          <Grid item xs={12} sm={6} md={3} style={{ maxHeight: '395px' }}>
             <CurrentMentorCard
               mentor={currentMentor}
               image="/assets/dashboard/current_mentor.png"
