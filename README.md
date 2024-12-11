@@ -1,6 +1,6 @@
 # MentorBridge
 
-MentorBridge is a web-based mentorship platform designed to connect undergraduate students and freshers with experienced mentors for guidance in academics, career planning, and personal development.
+MentorBridge is a web-based mentorship platform designed to connect undergraduate students and freshers with experienced mentors for guidance in academics, career planning, and professional development.
 
 ---
 
@@ -9,18 +9,23 @@ MentorBridge is a web-based mentorship platform designed to connect undergraduat
 1. [Project Overview](#project-overview)
 2. [Features](#features)
 3. [Technologies Used](#technologies-used)
-4. [Getting Started](#getting-started)
-5. [Login Credentials](#login-credentials)
-6. [Screenshots](#screenshots)
-7. [Future Enhancements](#future-enhancements)
-8. [Contributing](#contributing)
-9. [License](#license)
+4. [Usage](#usage)
+5. [Future Enhancements](#future-enhancements)
+
+
 
 ---
 
 ## Project Overview
 
 MentorBridge is an HCI-focused project aimed at providing an intuitive and user-friendly interface for mentees to interact with mentors. The platform features streamlined workflows, an aesthetically pleasing design, and HCI principles implemented throughout its development.
+
+Here's a video demo of the application:
+### Demo Video
+
+[![Watch the video](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://youtu.be/Td8-Wsb8Mqg)
+
+Click on the image to watch the demo video on YouTube.
 
 ---
 
@@ -42,7 +47,7 @@ MentorBridge is an HCI-focused project aimed at providing an intuitive and user-
 
 ---
 
-## Getting Started
+## Usage
 
 ### Prerequisites
 
@@ -71,18 +76,14 @@ Ensure you have the following installed:
 
 ---
 
-## Login Credentials
+### Login Credentials
 
 Use the following credentials to log in to the application:
 
 - **Username:** `mentee@uic.edu`
 - **Password:** `password123`
 
----
-
-## Screenshots
-
-_Add screenshots of the application here._
+Once logged in, you are free to explore the features of mentorBridge!
 
 ---
 
@@ -93,13 +94,6 @@ _Add screenshots of the application here._
 - Real-time chat functionality between mentors and mentees.
 
 ---
-
-## Contributing
-
-We welcome contributions to MentorBridge! To contribute:
-1. Fork the repository.
-2. Create a feature branch.
-3. Submit a pull request.
 
 ---
 
