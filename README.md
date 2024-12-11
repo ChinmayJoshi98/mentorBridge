@@ -1,4 +1,4 @@
-# MentorBridge
+# mentorBridge
 
 MentorBridge is a web-based mentorship platform designed to connect undergraduate students and freshers with experienced mentors for guidance in academics, career planning, and professional development.
 
@@ -23,7 +23,7 @@ MentorBridge is an HCI-focused project aimed at providing an intuitive and user-
 Here's a video demo of the application:
 ### Demo Video
 
-[![Watch the video](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://youtu.be/Td8-Wsb8Mqg)
+[![Watch the video](https://drive.google.com/file/d/1Hi3U4C-433MwtiFzTzLw5sJiZ98pxy6w/view?usp=drive_link)](https://youtu.be/Td8-Wsb8Mqg)
 
 Click on the image to watch the demo video on YouTube.
 
@@ -92,11 +92,3 @@ Once logged in, you are free to explore the features of mentorBridge!
 - Fully integrated backend with live mentor-student matching.
 - Enhanced recommendation system based on machine learning.
 - Real-time chat functionality between mentors and mentees.
-
----
-
----
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
